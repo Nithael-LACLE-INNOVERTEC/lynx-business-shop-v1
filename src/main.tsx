@@ -1,12 +1,15 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { AuthProvider } from './context/AuthContext.tsx'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Router from './router.tsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './css/style.css';
+import './css/satoshi.css';
+import 'jsvectormap/dist/css/jsvectormap.css';
+import 'flatpickr/dist/flatpickr.min.css';
+import { AuthProvider } from './context/AuthContext';
+import Router from './router';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <React.StrictMode>
     <AuthProvider>
       <BrowserRouter>
         <Routes>
@@ -14,5 +17,5 @@ createRoot(document.getElementById('root')!).render(
         </Routes>
       </BrowserRouter>
     </AuthProvider>
-  </StrictMode>,
-)
+  </React.StrictMode>,
+);

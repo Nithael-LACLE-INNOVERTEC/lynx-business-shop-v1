@@ -1,20 +1,89 @@
-import { Route, Routes } from "react-router-dom";
-import Layout from "./layouts/Layout";
-import Home from "./pages/Home";
-import Dashboard from "./pages/Dashboard";
-import Contact from "./pages/Contact";
-import Login from "./components/account/Login";
-import CustomerService from "./pages/CustomerService";
+import { useEffect, useState } from "react";
+import Loader from "./common/Loader";
+import { Route, Routes, useLocation } from "react-router-dom";
+import PageTitle from "./components/PageTitle";
+import SignIn from "./pages/Authentication/SignIn";
+import DefaultLayout from "./layout/DefaultLayout";
+import Home from "./pages/Home/Home";
+import Contact from "./pages/Contact/Contact";
+import ECommerce from "./pages/Dashboard/ECommerce";
+import SignUp from "./pages/Authentication/SignUp";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const Router = () => {
-    return (
+    const [loading, setLoading] = useState<boolean>(true);
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    useEffect(() => {
+        setTimeout(() => setLoading(false), 1000);
+    }, []);
+
+
+    return loading ? (
+        <Loader />
+    ) : (
         <Routes>
-            <Route path="/account/login" element={<Login />} />
-            <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="contact" element={<Contact />} />
-                <Route path="/customerservice" element={<CustomerService />} />
+            <Route
+                path="/auth/signin"
+                element={
+                    <>
+                        <PageTitle title="Signin | Bolangerie - Express" />
+                        <SignIn />
+                    </>
+                }
+            />
+            <Route path="/" element={<DefaultLayout />}>
+                <Route
+                    index
+                    element={
+                        <>
+                            <PageTitle title="System de Gestion | Bolangerie - Express" />
+                            <Home />
+                        </>
+                    }
+                />
+                <Route
+                    path="/contact"
+                    element={
+                        <>
+                            <PageTitle title="Contact | Bolangerie - Express" />
+                            <Contact />
+                        </>
+                    }
+                />
+                <Route element={<ProtectedRoute />}>
+                    <Route
+                        path="/auth/dashboard"
+                        element={
+                            <>
+                                <PageTitle title="eCommerce Dashboard | Bolangerie - Express" />
+                                <ECommerce />
+                            </>
+                        }
+                    />
+                </Route>
+                <Route
+                    path="/auth/signin"
+                    element={
+                        <>
+                            <PageTitle title="Signin | Bolangerie - Express" />
+                            <SignIn />
+                        </>
+                    }
+                />
+                <Route
+                    path="/auth/signup"
+                    element={
+                        <>
+                            <PageTitle title="Signup | Bolangerie - Express" />
+                            <SignUp />
+                        </>
+                    }
+                />
             </Route>
         </Routes>
     );
