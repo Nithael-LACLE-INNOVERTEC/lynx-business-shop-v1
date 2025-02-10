@@ -56,7 +56,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, sidebarCollapsed, setSidebarColl
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-50 h-screen flex flex-col bg-black text-white transition-all duration-300 ${
+      className={`absolute left-0 top-0 z-9999 h-screen flex flex-col bg-black text-white transition-all duration-300 ${
         sidebarOpen ? (sidebarCollapsed ? "w-24" : "w-72") : "w-0 overflow-hidden"
       }`}
     >
@@ -111,9 +111,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, sidebarCollapsed, setSidebarColl
 
           {/* Einstellungen */}
           <li>
-            <NavLink to="/settings" className="group flex items-center gap-3 p-3 text-white hover:bg-gray-700 rounded-md" title="Einstellungen">
+            <NavLink to="/settings" className="group flex items-center gap-3 p-3 text-white hover:bg-gray-700 rounded-md" title="Configurations">
               <FaCog className="text-xl" />
-              {!sidebarCollapsed && <span>Einstellungen</span>}
+              {!sidebarCollapsed && <span>Configurations</span>}
             </NavLink>
           </li>
 

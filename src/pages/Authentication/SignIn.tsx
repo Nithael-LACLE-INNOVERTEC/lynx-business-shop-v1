@@ -15,7 +15,7 @@ const SignIn: React.FC = () => {
     e.preventDefault();
 
     // Simuliere Login-Logik
-    if (email === "admin.musterman@innovertec.com" && password === "P@ssw0rd12") {
+    if (email === "admin.musterman@innovertec.com" && password === "P@ssw0rd123") {
       login(); // Erfolgreich eingeloggt
       setErrorMessage("");
       navigate("/auth/dashboard"); // Weiterleiten zur Dashboard-Seite (oder einer anderen geschützten Seite)
@@ -28,15 +28,15 @@ const SignIn: React.FC = () => {
     <>
       {/* <Breadcrumb pageName="Connexion" />*/}
 
-      <div className="rounded-sm border flex w-full h-screen border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div className="flex flex-wrap items-center">
-          <div className="hidden w-full xl:block xl:w-1/2">
+      <div className="flex w-full h-screen overflow-hidden border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div className="flex flex-1">
+          <div className="hidden md:flex w-1/2 items-center justify-center">
             <div className="py-17.5 px-26 text-center">
               <Link className="mb-5.5 inline-flex items-center" to="/">
                 <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
                   <img src={Logo} alt="Logo" className="w-8 h-8 rounded-full" />
                 </div>
-                <span className="text-2xl font-bold text-black-2 dark:text-white ml-2 whitespace-nowrap">Boulangerie Express</span>
+                <span className="text-sx sm:text-sm md:text-2xl font-bold text-black-2 dark:text-white ml-2">Boulangerie Express</span>
               </Link>
 
               <p className="2xl:px-20">
@@ -169,14 +169,18 @@ const SignIn: React.FC = () => {
             </div>
           </div>
 
-          <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
+          <div className="w-full md:w-1/2 flex items-center justify-center md:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-              <span className="mb-6 block text-lg font-bold">Connectez à votre compte</span>
-              <h2 className="mb-10 text-2xl font-bold text-black dark:text-white sm:text-title-xl1">
-                Connexion à Boulangerie-Express
-              </h2>
-
+              <div className="flex justify-center">
+                <span className="mb-6 block text-lg font-bold">Connectez à votre compte</span>
+              </div>
+              <div className="flex justify-center">
+                <h2 className="mb-10 text-xs sm:text-sm md:text-lg lg:text-2xl xl:text-2xl font-bold text-black dark:text-white">
+                  Connexion à Boulangerie-Express
+                </h2>
+              </div>
               <form onSubmit={handleSubmit}>
+                {errorMessage && <p className="text-red-600 mt-2 text-center">{errorMessage}</p>}
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
@@ -298,13 +302,12 @@ const SignIn: React.FC = () => {
 
                 <div className="mt-6 text-center">
                   <p>
-                    Vous n'avez pas de compte ? Inscrivez-vous?{' '}
+                    Vous n'avez pas de compte ? Inscrivez-vous!{' '}
                     <Link to="/auth/signup" className="text-primary">
-                      Sign Up
+                      S'inscrire
                     </Link>
                   </p>
                 </div>
-                {errorMessage && <p className="text-red-600 mt-2 text-center">{errorMessage}</p>}
               </form>
             </div>
           </div>

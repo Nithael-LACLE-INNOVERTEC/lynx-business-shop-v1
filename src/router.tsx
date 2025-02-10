@@ -9,6 +9,7 @@ import Contact from "./pages/Contact/Contact";
 import ECommerce from "./pages/Dashboard/ECommerce";
 import SignUp from "./pages/Authentication/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Customerservice from "./pages/customer/Customerservice";
 
 const Router = () => {
     const [loading, setLoading] = useState<boolean>(true);
@@ -31,7 +32,7 @@ const Router = () => {
                 path="/auth/signin"
                 element={
                     <>
-                        <PageTitle title="Signin | Bolangerie - Express" />
+                        <PageTitle title="Connxection | Bolangerie - Express" />
                         <SignIn />
                     </>
                 }
@@ -52,6 +53,15 @@ const Router = () => {
                         <>
                             <PageTitle title="Contact | Bolangerie - Express" />
                             <Contact />
+                        </>
+                    }
+                />
+                <Route
+                    path="/customerservices"
+                    element={
+                        <>
+                            <PageTitle title="Service-clients | Bolangerie - Express" />
+                            <Customerservice />
                         </>
                     }
                 />

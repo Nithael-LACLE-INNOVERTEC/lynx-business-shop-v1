@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaBars, FaTimes, FaCompress, FaExpand, FaAddressBook } from "react-icons/fa";
+import { FaBars, FaTimes, FaCompress, FaExpand, FaAddressBook, FaUserTie } from "react-icons/fa";
 import DropdownMessage from "./DropdownMessage";
 import DropdownNotification from "./DropdownNotification";
 import DropdownUser from "./DropdownUser";
@@ -15,9 +15,9 @@ const Header = (props: {
   const { isLoggedIn } = useAuth();
 
   return (
-    <header className="sticky top-0 z-999 flex w-full bg-white shadow-md dark:bg-boxdark">
+    <header className="sticky top-0 z-999 flex w-full bg-white shadow-md dark:bg-boxdark md:ml-0">
       <div className="flex flex-grow items-center justify-between px-4 py-4 md:px-6 2xl:px-11">
-        <div className="flex items-center gap-2 sm:gap-4 ml-4 md:ml-0 transition-all duration-300">
+        <div className="flex items-center gap-2 sm:gap-4 transition-all duration-300">
           {/* <!-- Sidebar Toggle (Komplett öffnen/schließen) --> */}
           {isLoggedIn && (
             <button
@@ -32,7 +32,7 @@ const Header = (props: {
           {props.sidebarOpen && (
             <button
               onClick={() => props.setSidebarCollapsed(!props.sidebarCollapsed)}
-              className="hidden md:inline-flex p-2 border rounded-sm bg-white dark:bg-boxdark shadow-sm"
+              className="hidden md:inline-flex p-2  border rounded-sm bg-white dark:bg-boxdark shadow-sm"
             >
               {props.sidebarCollapsed ? <FaExpand className="text-xl" /> : <FaCompress className="text-xl" />}
             </button>
@@ -40,6 +40,9 @@ const Header = (props: {
 
           <Link className="block flex-shrink-0" to="/contact" title="Contact">
             <FaAddressBook className="text-3xl text-primary dark:text-white" />
+          </Link>
+          <Link className="block flex-shrink-0" to="/customerservices" title="Service Clients">
+            <FaUserTie className="text-3xl text-primary dark:text-white" />
           </Link>
         </div>
         
