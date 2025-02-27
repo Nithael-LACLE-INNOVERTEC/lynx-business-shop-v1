@@ -15,7 +15,7 @@ const Header = (props: {
   const { isLoggedIn } = useAuth();
 
   return (
-    <header className="sticky top-0 z-999 flex w-full bg-white shadow-md dark:bg-boxdark md:ml-0">
+    <header className="sticky top-0 z-50 flex w-full bg-white shadow-md dark:bg-boxdark md:ml-0">
       <div className="flex flex-grow items-center justify-between px-4 py-4 md:px-6 2xl:px-11">
         <div className="flex items-center gap-2 sm:gap-4 transition-all duration-300">
           {/* <!-- Sidebar Toggle (Komplett öffnen/schließen) --> */}
@@ -39,10 +39,10 @@ const Header = (props: {
           )}
 
           <Link className="block flex-shrink-0" to="/contact" title="Contact">
-            <FaAddressBook className="text-3xl text-primary dark:text-white" />
+            <FaAddressBook className="text-3xl text-[#cacdd3] dark:text-white" />
           </Link>
           <Link className="block flex-shrink-0" to="/customerservices" title="Service Clients">
-            <FaUserTie className="text-3xl text-primary dark:text-white" />
+            <FaUserTie className="text-3xl text-[#cacdd3] dark:text-white" />
           </Link>
         </div>
         
@@ -55,7 +55,7 @@ const Header = (props: {
             {isLoggedIn ? (
               <DropdownUser />
             ) : (
-              <Link to="/auth/signin">S'identifier</Link>
+              <Link to="/auth/signin"><span className="text-[#cf822d] font-extrabold dark:text-white">S'identifier</span></Link>
             )}
           </div>
       </div>

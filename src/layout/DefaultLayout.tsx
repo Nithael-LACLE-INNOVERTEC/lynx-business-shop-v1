@@ -1,10 +1,12 @@
 // src/layout/DefaultLayout.tsx
 import { useState } from "react";
-import Header from "../components/Header/index";
-import Sidebar from "../components/Sidebar/index";
-import Footer from "../pages/Footer/Footer";
 import { Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import Sidebar from "../components/Sidebar/index";
+import Header from "../components/Header/index";
+import Footer from "../pages/Footer/Footer";
+import ScrollToTop from "../components/ScrollToTop";
+
 
 const DefaultLayout = () => {
   const { isLoggedIn } = useAuth();
@@ -12,9 +14,9 @@ const DefaultLayout = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <div className="dark:bg-boxdark-2 dark:text-bodydark">
-      <div className="flex h-screen overflow-hidden">
-        {/* Sidebar nur anzeigen, wenn der Benutzer eingeloggt ist */}
+    <div className="dark:bg-boxdark-2 bg-black dark:text-bodydark">
+      <div className="flex flex-col min-h-screen overflow-hidden">
+        {/* Sidebar anzeigen, wenn eingeloggt */}
         {isLoggedIn && (
           <Sidebar
             sidebarOpen={sidebarOpen}
@@ -24,12 +26,13 @@ const DefaultLayout = () => {
           />
         )}
 
-        {/* Content Bereich */}
+        {/* Hauptinhalt */}
         <div
-          className={`relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden transition-all duration-300 ${isLoggedIn ? (sidebarOpen ? (sidebarCollapsed ? "ml-20" : "ml-72") : "ml-0") : "ml-0"
-            }`}
+          className={`relative flex flex-1 flex-col overflow-y-auto 
+                      transition-all duration-300 
+                      ${isLoggedIn ? (sidebarOpen ? (sidebarCollapsed ? "ml-24" : "ml-72") : "ml-0") : "ml-0"}`}
         >
-          {/* Header bleibt fix */}
+          {/* Header */}
           <Header
             sidebarOpen={isLoggedIn ? sidebarOpen : false}
             setSidebarOpen={isLoggedIn ? setSidebarOpen : () => { }}
@@ -37,15 +40,19 @@ const DefaultLayout = () => {
             setSidebarCollapsed={setSidebarCollapsed}
           />
 
-          {/* Hauptinhalt */}
+          {/* Inhalt */}
           <main className="bg-gray-100 w-full flex-grow">
             <Outlet />
           </main>
 
+          {/* Scroll to Top Button */}
+          <ScrollToTop />
+
           {/* Footer */}
-          <div className="mt-8 sm:mt-3">
+          <div className="w-full bg-gray-900 text-white mt-auto">
             <Footer />
           </div>
+
         </div>
       </div>
     </div>

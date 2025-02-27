@@ -6,7 +6,7 @@ const ECommerce: React.FC = () => {
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5 
-        ml-4 md:ml-0 transition-all duration-300">
+                      ml-4 md:ml-0 +jh- transition-all duration-300 py-6 px-6">
         <CardDataStats title="Total views" total="$3.456K" rate="0.43%" levelUp>
           <FaEye className="text-primary dark:text-white text-2xl" />
         </CardDataStats>
@@ -19,7 +19,7 @@ const ECommerce: React.FC = () => {
           <FaBox className="text-primary dark:text-white text-2xl" />
         </CardDataStats>
         
-        <CardDataStats title="Total Users" total="3.456" rate="0.95%" levelDown>
+        <CardDataStats title="Total Users" total="3.456" rate="0.95%" levelDown>      
           <FaUsers className="text-primary dark:text-white text-2xl" />
         </CardDataStats>
       </div>

@@ -50,7 +50,10 @@ const DropdownNotification = () => {
               </h5>
             </div>
 
-            <ul className="flex h-auto flex-col overflow-y-auto">
+            <ul className="flex h-auto flex-col overflow-y-auto [&::-webkit-scrollbar]:w-1
+                         [&::-webkit-scrollbar-thumb]:bg-gray-400 
+                           [&::-webkit-scrollbar-thumb]:rounded-full 
+                           [&::-webkit-scrollbar-track]:bg-transparent">
               <li>
                 <Link
                   className="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"

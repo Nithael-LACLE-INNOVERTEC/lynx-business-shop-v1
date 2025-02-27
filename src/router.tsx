@@ -10,6 +10,8 @@ import ECommerce from "./pages/Dashboard/ECommerce";
 import SignUp from "./pages/Authentication/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Customerservice from "./pages/customer/Customerservice";
+import CategoryList from "./components/categories/CategoryList";
+import StockList from "./components/products/StockList";
 
 const Router = () => {
     const [loading, setLoading] = useState<boolean>(true);
@@ -72,6 +74,24 @@ const Router = () => {
                             <>
                                 <PageTitle title="eCommerce Dashboard | Bolangerie - Express" />
                                 <ECommerce />
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/auth/category/list"
+                        element={
+                            <>
+                                <PageTitle title="Category List | Bolangerie - Express" />
+                                <CategoryList />
+                            </>
+                        }
+                    />
+                     <Route
+                        path="stocks/produits/list"
+                        element={
+                            <>
+                                <PageTitle title="Stock List | Bolangerie - Express" />
+                                <StockList />
                             </>
                         }
                     />

@@ -30,6 +30,20 @@
   }
 }
 
+/* Globale dünne Scrollbar */
+::-webkit-scrollbar {
+  width: 4px; /* Dünn */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #757575; /* Farbe */
+  border-radius: 10px; /* Runde Ecken */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Unsichtbare Schiene */
+}
+
 /* third-party libraries CSS */
 
 .tableCheckbox:checked ~ div span {
