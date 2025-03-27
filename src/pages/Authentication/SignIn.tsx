@@ -6,14 +6,8 @@ import { useAuth } from '../../context/AuthContext';
 
 const SignIn: React.FC = () => {
   /**===================== HOOKS ======================= */
-  // Indicatif or Code Number
   const [codeNumber, setCodeNumber] = useState("");
-  const [codeNumberErrorMessage, setCodeNumberErrorMessage] = useState("");
-  // Telephone Number
   const [telephoneNumber, setTelephoneNumber] = useState("");
-  const [telephoneNumberErrorMessage, setTelephoneNumberErrorMessage] = useState("");
-  const [isFocusedTelephoneNumber, setIsFocusedTelephoneNumber] = useState(false);
-  // Password
   const [password, setPassword] = useState("");
 
 
@@ -21,12 +15,6 @@ const SignIn: React.FC = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const handleBlur = (e: any) => {
-    const { value } = e.target;
-    if (value?.trim() !== "") {
-      setErrorMessage(""); // Supprime l'erreur si l'utilisateur a saisi du texte
-    }
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,8 +30,7 @@ const SignIn: React.FC = () => {
       setTelephoneNumber("");
       setPassword("");
     } else {
-      setCodeNumberErrorMessage("Numéro de téléphone invalide");
-      setTelephoneNumberErrorMessage("Numéro de téléphone invalide");
+      setErrorMessage("Code, numéro de téléphone ou mot de passe incorrect");;
     }
   };
 
@@ -203,7 +190,7 @@ const SignIn: React.FC = () => {
                 </h2>
               </div>
               <form onSubmit={handleSubmit}>
-                {errorMessage && <p className="text-red-600 mt-2 text-center">{errorMessage}</p>}
+                {errorMessage && <p className="text-red-600 mt-2 mb-6 text-center">{errorMessage}</p>}
 
                 <div className="mb-4 flex flex-row gap-x-4">
                   {/* Code Number Phone */}
@@ -212,40 +199,21 @@ const SignIn: React.FC = () => {
                       Indicatif
                     </label>
                     <div className="relative">
-                      <select
-                        value={codeNumber}
-                        onChange={(e) => setCodeNumber(e.target.value)}
-                        className="w-full rounded-lg appearance-none  border border-stroke bg-transparent py-4 pl-2 pr-2 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                      >
-                        <option value="0" ><span className='text-gray-300'>choisir</span></option>
-                        <option value="+1">+1</option>
-                        <option value="+228">+228</option>
-                        <option value="+33">+33</option>
-                        <option value="+44">+44</option>
-                        <option value="+49">+49</option>
-                      </select>
-                      <span className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500">▼</span>
-
-                      {/* Error message */}
-                      {codeNumberErrorMessage && (
-                        <span className="flex items-center gap-2 text-red-600 text-sm mt-1">
-                          <svg
-                            className="w-4 h-4 text-red-600"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                            ></path>
-                          </svg>
-                          {codeNumberErrorMessage}
-                        </span>
-                      )}
+                      <div className="relative">
+                        <select
+                          value={codeNumber}
+                          onChange={(e) => setCodeNumber(e.target.value)}
+                          className="w-full rounded-lg appearance-none  border border-stroke bg-transparent py-4 pl-2 pr-2 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        >
+                          <option value="0" ><span className='text-gray-300'>choisir</span></option>
+                          <option value="+1">+1</option>
+                          <option value="+228">+228</option>
+                          <option value="+33">+33</option>
+                          <option value="+44">+44</option>
+                          <option value="+49">+49</option>
+                        </select>
+                        <span className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500">▼</span>
+                      </div>
                     </div>
                   </div>
 
@@ -263,11 +231,7 @@ const SignIn: React.FC = () => {
                         required
                         placeholder="Ex: 90 00 00 00"
                         className={`w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none
-                         dark:border-form-strokedark dark:bg-form-input dark:text-white
-                         ${telephoneNumberErrorMessage ? "border-red-500" : "border-gray-300"}
-                         ${isFocusedTelephoneNumber ? "focus:border-primary focus-visible:shadow-none  dark:focus:border-primary" : ""}`}
-                        onFocus={() => setIsFocusedTelephoneNumber(true)}
-                        onBlur={() => setIsFocusedTelephoneNumber(false)}
+                         dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary focus-visible:shadow-none  dark:focus:border-primary`}
                       />
 
                       <span className="absolute right-4 top-4">
@@ -288,27 +252,6 @@ const SignIn: React.FC = () => {
                         </svg>
                       </span>
                     </div>
-
-                    {/* Error message */}
-                    {telephoneNumberErrorMessage && (
-                      <span className="flex items-center gap-2 text-red-600 text-sm mt-1">
-                        <svg
-                          className="w-4 h-4 text-red-600"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          ></path>
-                        </svg>
-                        {telephoneNumberErrorMessage}
-                      </span>
-                    )}
                   </div>
                 </div>
 
@@ -349,27 +292,6 @@ const SignIn: React.FC = () => {
                       </svg>
                     </span>
                   </div>
-
-                  {/* Error message */}
-                  {telephoneNumberErrorMessage && (
-                    <span className="flex items-center gap-2 text-red-600 text-sm mt-1">
-                      <svg
-                        className="w-4 h-4 text-red-600"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        ></path>
-                      </svg>
-                      {telephoneNumberErrorMessage}
-                    </span>
-                  )}
                 </div>
 
                 <div className="mb-5">
