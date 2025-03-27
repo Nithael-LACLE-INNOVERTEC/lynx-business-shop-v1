@@ -9,15 +9,12 @@ const SignIn: React.FC = () => {
   // Indicatif or Code Number
   const [codeNumber, setCodeNumber] = useState("");
   const [codeNumberErrorMessage, setCodeNumberErrorMessage] = useState("");
-  const [isFocusedCodeNumber, setIsFocusedCodeNumber] = useState(false);
   // Telephone Number
   const [telephoneNumber, setTelephoneNumber] = useState("");
   const [telephoneNumberErrorMessage, setTelephoneNumberErrorMessage] = useState("");
   const [isFocusedTelephoneNumber, setIsFocusedTelephoneNumber] = useState(false);
   // Password
   const [password, setPassword] = useState("");
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
-  const [isFocusedPassword, setIsFocusedPassword] = useState(false);
 
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -39,9 +36,14 @@ const SignIn: React.FC = () => {
       login(); // Erfolgreich eingeloggt
       setErrorMessage("");
       navigate("/auth/dashboard"); // Weiterleiten zur Dashboard-Seite (oder einer anderen geschützten Seite)
+
+      // Vider les inputs
+      setCodeNumber("");
+      setTelephoneNumber("");
+      setPassword("");
     } else {
-      setErrorMessage("Numéro de téléphone ou mot de passe invalide");
-      console.log("Numéro de téléphone ou mot de passe invalide");
+      setCodeNumberErrorMessage("Numéro de téléphone invalide");
+      setTelephoneNumberErrorMessage("Numéro de téléphone invalide");
     }
   };
 
@@ -213,22 +215,16 @@ const SignIn: React.FC = () => {
                       <select
                         value={codeNumber}
                         onChange={(e) => setCodeNumber(e.target.value)}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-2 pr-2 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                        onFocus={() => setIsFocusedCodeNumber(true)}
-                        onBlur={(e) => {
-                          if (e.target.value != null || e.target.value != "0") {
-                            setCodeNumberErrorMessage("");
-                          } 
-                          setIsFocusedCodeNumber(false)
-                        }}
+                        className="w-full rounded-lg appearance-none  border border-stroke bg-transparent py-4 pl-2 pr-2 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       >
-                        <option value="0">choisir</option>
+                        <option value="0" ><span className='text-gray-300'>choisir</span></option>
                         <option value="+1">+1</option>
                         <option value="+228">+228</option>
                         <option value="+33">+33</option>
                         <option value="+44">+44</option>
                         <option value="+49">+49</option>
                       </select>
+                      <span className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500">▼</span>
 
                       {/* Error message */}
                       {codeNumberErrorMessage && (
@@ -269,7 +265,7 @@ const SignIn: React.FC = () => {
                         className={`w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none
                          dark:border-form-strokedark dark:bg-form-input dark:text-white
                          ${telephoneNumberErrorMessage ? "border-red-500" : "border-gray-300"}
-                         ${isFocusedTelephoneNumber ?  "focus:border-primary focus-visible:shadow-none  dark:focus:border-primary" : ""}`}
+                         ${isFocusedTelephoneNumber ? "focus:border-primary focus-visible:shadow-none  dark:focus:border-primary" : ""}`}
                         onFocus={() => setIsFocusedTelephoneNumber(true)}
                         onBlur={() => setIsFocusedTelephoneNumber(false)}
                       />
