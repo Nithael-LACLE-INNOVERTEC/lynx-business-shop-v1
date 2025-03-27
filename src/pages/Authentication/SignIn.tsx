@@ -5,22 +5,43 @@ import Logo from "@/assets/react.svg";
 import { useAuth } from '../../context/AuthContext';
 
 const SignIn: React.FC = () => {
-  const [email, setEmail] = useState("");
+  /**===================== HOOKS ======================= */
+  // Indicatif or Code Number
+  const [codeNumber, setCodeNumber] = useState("");
+  const [codeNumberErrorMessage, setCodeNumberErrorMessage] = useState("");
+  const [isFocusedCodeNumber, setIsFocusedCodeNumber] = useState(false);
+  // Telephone Number
+  const [telephoneNumber, setTelephoneNumber] = useState("");
+  const [telephoneNumberErrorMessage, setTelephoneNumberErrorMessage] = useState("");
+  const [isFocusedTelephoneNumber, setIsFocusedTelephoneNumber] = useState(false);
+  // Password
   const [password, setPassword] = useState("");
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
+  const [isFocusedPassword, setIsFocusedPassword] = useState(false);
+
+
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();
+
+  const handleBlur = (e: any) => {
+    const { value } = e.target;
+    if (value?.trim() !== "") {
+      setErrorMessage(""); // Supprime l'erreur si l'utilisateur a saisi du texte
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     // Simuliere Login-Logik
-    if (email === "admin.musterman@innovertec.com" && password === "P@ssw0rd123") {
+    if (codeNumber === "+228" && telephoneNumber === "90112233" && password === "P@ssw0rd123") {
       login(); // Erfolgreich eingeloggt
       setErrorMessage("");
       navigate("/auth/dashboard"); // Weiterleiten zur Dashboard-Seite (oder einer anderen geschützten Seite)
     } else {
-      setErrorMessage("Invalid email or password");
+      setErrorMessage("Numéro de téléphone ou mot de passe invalide");
+      console.log("Numéro de téléphone ou mot de passe invalide");
     }
   };
 
@@ -181,38 +202,117 @@ const SignIn: React.FC = () => {
               </div>
               <form onSubmit={handleSubmit}>
                 {errorMessage && <p className="text-red-600 mt-2 text-center">{errorMessage}</p>}
-                <div className="mb-4">
-                  <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Email
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      autoComplete="email"
-                      required
-                      placeholder="Entrez votre e-mail"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                    />
 
-                    <span className="absolute right-4 top-4">
-                      <svg
-                        className="fill-current"
-                        width="22"
-                        height="22"
-                        viewBox="0 0 22 22"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                <div className="mb-4 flex flex-row gap-x-4">
+                  {/* Code Number Phone */}
+                  <div className="mb-6 w-1/3">
+                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                      Indicatif
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={codeNumber}
+                        onChange={(e) => setCodeNumber(e.target.value)}
+                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-2 pr-2 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        onFocus={() => setIsFocusedCodeNumber(true)}
+                        onBlur={(e) => {
+                          if (e.target.value != null || e.target.value != "0") {
+                            setCodeNumberErrorMessage("");
+                          } 
+                          setIsFocusedCodeNumber(false)
+                        }}
                       >
-                        <g opacity="0.5">
+                        <option value="0">choisir</option>
+                        <option value="+1">+1</option>
+                        <option value="+228">+228</option>
+                        <option value="+33">+33</option>
+                        <option value="+44">+44</option>
+                        <option value="+49">+49</option>
+                      </select>
+
+                      {/* Error message */}
+                      {codeNumberErrorMessage && (
+                        <span className="flex items-center gap-2 text-red-600 text-sm mt-1">
+                          <svg
+                            className="w-4 h-4 text-red-600"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                          </svg>
+                          {codeNumberErrorMessage}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Number Input */}
+                  <div className="mb-6 w-full">
+                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                      Numéro de téléphone
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="tel"
+                        value={telephoneNumber}
+                        onChange={(e) => setTelephoneNumber(e.target.value)}
+                        // autoComplete="email"
+                        required
+                        placeholder="Ex: 90 00 00 00"
+                        className={`w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none
+                         dark:border-form-strokedark dark:bg-form-input dark:text-white
+                         ${telephoneNumberErrorMessage ? "border-red-500" : "border-gray-300"}
+                         ${isFocusedTelephoneNumber ?  "focus:border-primary focus-visible:shadow-none  dark:focus:border-primary" : ""}`}
+                        onFocus={() => setIsFocusedTelephoneNumber(true)}
+                        onBlur={() => setIsFocusedTelephoneNumber(false)}
+                      />
+
+                      <span className="absolute right-4 top-4">
+                        <svg
+                          className="fill-current"
+                          width="22"
+                          height="22"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g opacity="0.5">
+                            <path
+                              d="M19.5 15.75C18.675 15.75 17.8875 15.6375 17.1375 15.45C16.9125 15.375 16.65 15.4125 16.4625 15.5625L14.475 17.025C11.7375 15.675 9.3375 13.3125 7.95 10.5375L9.4125 8.55C9.5625 8.3625 9.6 8.1 9.525 7.875C9.3375 7.125 9.225 6.3375 9.225 5.5125C9.225 5.1 8.8875 4.75 8.475 4.75H5.8125C5.4 4.75 5.0625 5.1 5.0625 5.5125C5.0625 13.0125 10.9875 18.9375 18.4875 18.9375C18.9 18.9375 19.25 18.6 19.25 18.1875V15.525C19.5 15.75 19.5 15.75 19.5 15.75Z"
+                              fill=""
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                    </div>
+
+                    {/* Error message */}
+                    {telephoneNumberErrorMessage && (
+                      <span className="flex items-center gap-2 text-red-600 text-sm mt-1">
+                        <svg
+                          className="w-4 h-4 text-red-600"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <path
-                            d="M19.2516 3.30005H2.75156C1.58281 3.30005 0.585938 4.26255 0.585938 5.46567V16.6032C0.585938 17.7719 1.54844 18.7688 2.75156 18.7688H19.2516C20.4203 18.7688 21.4172 17.8063 21.4172 16.6032V5.4313C21.4172 4.26255 20.4203 3.30005 19.2516 3.30005ZM19.2516 4.84692C19.2859 4.84692 19.3203 4.84692 19.3547 4.84692L11.0016 10.2094L2.64844 4.84692C2.68281 4.84692 2.71719 4.84692 2.75156 4.84692H19.2516ZM19.2516 17.1532H2.75156C2.40781 17.1532 2.13281 16.8782 2.13281 16.5344V6.35942L10.1766 11.5157C10.4172 11.6875 10.6922 11.7563 10.9672 11.7563C11.2422 11.7563 11.5172 11.6875 11.7578 11.5157L19.8016 6.35942V16.5688C19.8703 16.9125 19.5953 17.1532 19.2516 17.1532Z"
-                            fill=""
-                          />
-                        </g>
-                      </svg>
-                    </span>
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          ></path>
+                        </svg>
+                        {telephoneNumberErrorMessage}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -253,6 +353,27 @@ const SignIn: React.FC = () => {
                       </svg>
                     </span>
                   </div>
+
+                  {/* Error message */}
+                  {telephoneNumberErrorMessage && (
+                    <span className="flex items-center gap-2 text-red-600 text-sm mt-1">
+                      <svg
+                        className="w-4 h-4 text-red-600"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                      {telephoneNumberErrorMessage}
+                    </span>
+                  )}
                 </div>
 
                 <div className="mb-5">
