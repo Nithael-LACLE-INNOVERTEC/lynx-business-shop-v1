@@ -33,7 +33,7 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Simuliere Login-Logik
     if (codeNumber === "+228" && telephoneNumber === "90112233" && password === "P@ssw0rd123") {
       login(); // Erfolgreich eingeloggt
@@ -41,6 +41,7 @@ const SignIn: React.FC = () => {
       navigate("/auth/dashboard"); // Weiterleiten zur Dashboard-Seite (oder einer anderen geschützten Seite)
     } else {
       setErrorMessage("Numéro de téléphone ou mot de passe invalide");
+      console.log("Numéro de téléphone ou mot de passe invalide");
     }
   };
 
