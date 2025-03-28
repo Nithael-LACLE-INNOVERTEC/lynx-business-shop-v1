@@ -12,7 +12,7 @@ const DefaultLayout = () => {
   const { isLoggedIn } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-
+  
   return (
     <div className="dark:bg-boxdark-2 bg-black dark:text-bodydark">
       <div className="flex flex-col min-h-screen overflow-hidden">

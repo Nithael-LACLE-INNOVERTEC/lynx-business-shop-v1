@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-//import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import Logo from "@/assets/react.svg";
 import { useAuth } from '../../context/AuthContext';
+import Cookies from 'js-cookie';
 
 const SignIn: React.FC = () => {
   /**===================== HOOKS ======================= */
@@ -12,26 +12,32 @@ const SignIn: React.FC = () => {
 
 
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
-  const { login } = useAuth();
+  // const navigate = useNavigate();
+  const { login, isLoggedIn } = useAuth();
 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Simuliere Login-Logik
-    if (codeNumber === "+228" && telephoneNumber === "90112233" && password === "P@ssw0rd123") {
-      login(); // Erfolgreich eingeloggt
-      setErrorMessage("");
-      navigate("/auth/dashboard"); // Weiterleiten zur Dashboard-Seite (oder einer anderen geschützten Seite)
+    const signIn = login({ code: codeNumber, telephone_number: telephoneNumber, password });
+
+    if (isLoggedIn) {
+
+      Cookies.set('userAuthInfo', JSON.stringify(signIn));
+      console.warn("Information du cookie: ", Cookies.get('userAuthInfo'));
+
+
+      // navigate("/auth/dashboard"); // Weiterleiten zur Dashboard-Seite (oder einer anderen geschützten Seite)
 
       // Vider les inputs
       setCodeNumber("");
       setTelephoneNumber("");
       setPassword("");
+
     } else {
-      setErrorMessage("Code, numéro de téléphone ou mot de passe incorrect");;
+      setErrorMessage(signIn);
     }
+
   };
 
   return (

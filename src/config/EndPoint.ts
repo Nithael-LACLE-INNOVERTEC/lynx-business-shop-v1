@@ -1,0 +1,20 @@
+export const BASE_API_URL = import.meta.env.VITE_BASE_URL;
+
+// API ENDPOINTS FOR AUTHENTICATION
+export const API_AUTH = '/auth';
+export const API_AUTH_LOGIN = `${API_AUTH}/sign-in`;
+export const API_AUTH_LOGOUT = `${API_AUTH}/logout`;
+export const API_AUTH_PROFILE = `${API_AUTH}/profile`;
+
+// API ENDPOINTS FOR USER MANAGEMENT
+
+
+// API ENDPOINTS FOR CATEGORY MANAGEMENT
+
+
+// API ENDPOINTS FOR PRODUCT MANAGEMENT
+
+
+// API ENDPOINTS FOR ORDER MANAGEMENT
+
+
